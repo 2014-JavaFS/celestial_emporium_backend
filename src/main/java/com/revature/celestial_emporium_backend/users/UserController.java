@@ -1,5 +1,6 @@
 package com.revature.celestial_emporium_backend.users;
 
+import com.revature.celestial_emporium_backend.util.exceptions.InsufficientPrivileges;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +18,9 @@ public class UserController {
     }
     //todo: Implement
     @GetMapping
-    private ResponseEntity<List<User>> getUsers(){
-        return null;
+    private List<User> getAllUsers(@RequestHeader String userTier){
+        if(userTier.equals("ADMIN")) return userService.findAll();
+        else throw new InsufficientPrivileges("Only an admin may view all users.");
     }
     //todo: Implement
     @GetMapping("/{id}")
