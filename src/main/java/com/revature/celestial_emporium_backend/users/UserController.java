@@ -24,10 +24,10 @@ public class UserController {
         if(userTier.equals("ADMIN")) return userService.findAll();
         else throw new InsufficientPrivileges("Only an admin may view all users.");
     }
-    //todo: Implement
+
     @GetMapping("/{id}")
-    private ResponseEntity<User> getUserByID(@PathVariable int id){
-        return null;
+    private ResponseEntity<User> getUserByID(@PathVariable int userId) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findById(userId));
     }
 
     @PostMapping()
