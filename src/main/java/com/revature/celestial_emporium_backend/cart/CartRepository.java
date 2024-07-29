@@ -7,7 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Integer> {
-
-    // @Query("FROM carts WHERE cart_id = :cartId");
-    Optional<Cart> findById(int id);
+    // JpaRepository already provides the findById method that returns Optional<Cart>
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.zip.DataFormatException;
 
@@ -22,27 +23,27 @@ public class CartService {
 
         if (carts.isEmpty()) {
             throw new DataNotFoundException("No cart information available");
-        } else {
-            return carts;
         }
+        return carts;
     }
 
-    public Cart findById(int cartId) {
-        Cart foundCart = cartRepository.findById(cartId);
-        return foundCart;
+    public Optional<Cart> findById(int id) {
+        return cartRepository.findById(id);
     }
 
     public Cart create(Cart cart) {
-        return cartRepository.create(cart);
+        return cartRepository.save(cart);
     }
 
-    public boolean delete(Cart cart) {
-        cartRepository.delete(cart);
+    @Transactional
+    public boolean delete(int cartId) {
+        cartRepository.deleteById(cartId);
         return true;
     }
 
+    @Transactional
     public boolean update(Cart cart) {
-        cartRepository.update(cart);
+        cartRepository.save(cart);
         return true;
     }
 
