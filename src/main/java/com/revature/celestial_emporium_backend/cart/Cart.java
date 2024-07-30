@@ -21,7 +21,7 @@ public class Cart {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private int userId;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private OffsetDateTime timestamp;
