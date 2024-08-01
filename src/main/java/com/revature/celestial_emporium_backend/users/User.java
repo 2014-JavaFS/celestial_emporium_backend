@@ -1,6 +1,7 @@
 package com.revature.celestial_emporium_backend.users;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,8 +17,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userIdNumber;
     @Column(unique = true, nullable = false)
-    @Pattern(regexp="[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+",
-            message = "An email address must be in the form of _@_._; please try again.")
+    @Email(message = "An email address must be in the form of _@_._; please try again.")
     private String email;
     @Pattern(regexp = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}",
             message = "A password must be between 8 and 30 characters and include at least one uppercase letter, " +
@@ -42,4 +42,6 @@ public class User {
         4) Admin: Delete individual accounts and items from the master catalog as well as certain universal admin functions.
         5) Waukeen: Goddess of trade may at her sole, and mercurial, discretion destroy the entire database.
      */
+
+
 }
