@@ -37,4 +37,7 @@ public class ItemService {
         return true;
     }
 
+    public Item findByItemId(int itemId) throws DataNotFoundException{
+        return itemRepository.findById(itemId).orElseThrow(() -> new DataNotFoundException("No item found with itemId " + itemId));
+    }
 }

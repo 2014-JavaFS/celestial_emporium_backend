@@ -1,5 +1,6 @@
 package com.revature.celestial_emporium_backend.users;
 
+import com.revature.celestial_emporium_backend.util.exceptions.DataNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,10 @@ public class UserService {
     public List<User> findAll() {
         return userRepository.findAll();
     }
+
+
+    public User findByUserIdNumber(int userIdNumber) throws DataNotFoundException {
+        return userRepository.findById(userIdNumber).orElseThrow(() -> new DataNotFoundException("No User found with userIdNumber " + userIdNumber));
 
     public int lookupUserIdByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow().getUserIdNumber();
@@ -38,5 +43,6 @@ public class UserService {
     //todo Implement
     protected User updateUserTierLevel(User user, User.MemberType newLevel){
         return null;
+
     }
 }
