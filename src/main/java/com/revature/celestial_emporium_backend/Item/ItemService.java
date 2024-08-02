@@ -40,4 +40,12 @@ public class ItemService {
     public Item findByItemId(int itemId) throws DataNotFoundException{
         return itemRepository.findById(itemId).orElseThrow(() -> new DataNotFoundException("No item found with itemId " + itemId));
     }
+
+    public Item findByName(String name) throws DataNotFoundException{
+        return itemRepository.findByName(name).orElseThrow(() -> new DataNotFoundException("No item found with name " + name));
+    }
+
+    public Item updateItem(Item updatedItem) {
+        return itemRepository.save(updatedItem);
+    }
 }

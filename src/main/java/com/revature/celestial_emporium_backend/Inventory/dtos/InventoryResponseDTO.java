@@ -2,6 +2,7 @@ package com.revature.celestial_emporium_backend.Inventory.dtos;
 
 import com.revature.celestial_emporium_backend.Inventory.Inventory;
 import com.revature.celestial_emporium_backend.Item.Item;
+import com.revature.celestial_emporium_backend.Profile.Profile;
 
 
 public class InventoryResponseDTO {
@@ -26,6 +27,7 @@ public class InventoryResponseDTO {
         this.quantity = inventory.getQuantity();
         this.price = inventory.getPrice();
     }
+
 
     public Item getItem() {return item;}
 
