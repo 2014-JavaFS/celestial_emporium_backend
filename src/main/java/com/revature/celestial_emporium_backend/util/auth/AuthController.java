@@ -1,6 +1,8 @@
 package com.revature.celestial_emporium_backend.util.auth;
 
 import com.revature.celestial_emporium_backend.users.User;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,16 +34,17 @@ public class AuthController {
      * <h5>Handles the login request.</h5>
      * <p>Calls the login method in AuthService</p>
      *
-     * @param loginForm the form contianing login details
+     * @param loginDto the form contianing login details
      */
 
     @PostMapping("/login")
-    private void login(@RequestBody LoginForm loginForm) {
+    private ResponseEntity<String> login(@RequestBody LoginDto loginDto) {
         try {
-            User user = authService.login(loginForm).orElse(null);
+            User user = authService.login(loginDto);
         } catch (AuthenticationException e) {
             e.printStackTrace();
         }
+        return ResponseEntity.status(HttpStatus.OK).body(loginDto.getEmail());
     }
 
 }

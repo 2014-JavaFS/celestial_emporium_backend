@@ -1,4 +1,5 @@
 package com.revature.celestial_emporium_backend.cart;
+import com.revature.celestial_emporium_backend.util.exceptions.DataNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
