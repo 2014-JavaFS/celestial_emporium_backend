@@ -19,9 +19,9 @@ public class User {
     @Column(unique = true, nullable = false)
     @Email(message = "An email address must be in the form of _@_._; please try again.")
     private String email;
-    @Pattern(regexp = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}",
-            message = "A password must be between 8 and 30 characters and include at least one uppercase letter, " +
-                    "one lowercase letter, and one special character. Please try again.")
+//    @Pattern(regexp = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}",
+ //           message = "A password must be between 8 and 30 characters and include at least one uppercase letter, " +
+//                    "one lowercase letter, and one special character. Please try again.")
     @Column(nullable = false)
     private String password;
     private String firstName;

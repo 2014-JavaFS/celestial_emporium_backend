@@ -35,8 +35,9 @@ public class UserService {
         updatedUser.setMemberTier(findById(updatedUser.getUserIdNumber()).getMemberTier());
         return userRepository.save(updatedUser);
     }
-    //todo Implement
+
     protected User updateUserTierLevel(User user, User.MemberType newLevel){
-        return null;
+        user.setMemberTier(newLevel);
+        return userRepository.save(user);
     }
 }
