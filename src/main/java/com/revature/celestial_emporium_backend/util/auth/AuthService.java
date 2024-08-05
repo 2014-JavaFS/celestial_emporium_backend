@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.naming.AuthenticationException;
+import java.util.NoSuchElementException;
 
 @Service
 public class AuthService {
@@ -24,6 +25,16 @@ public class AuthService {
             return user;
         } else {
             throw new AuthenticationException();
+        }
+    }
+
+    public User register(RegisterDto registerDto) {
+        int id;
+        try {
+            id = userService.lookupUserIdByEmail(registerDto.getEmail());
+            return userService.findByUserIdNumber(id);
+        } catch(NoSuchElementException e) {
+            return null;
         }
     }
 }

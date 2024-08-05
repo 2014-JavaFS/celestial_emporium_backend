@@ -1,8 +1,13 @@
 package com.revature.celestial_emporium_backend.util.auth;
 
 import com.revature.celestial_emporium_backend.users.User;
+import com.revature.celestial_emporium_backend.users.UserRepository;
+import com.revature.celestial_emporium_backend.users.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,14 +25,34 @@ import javax.naming.AuthenticationException;
 public class AuthController {
 
 
+    private final AuthenticationManager authenticationManager;
     private final AuthService authService;
+    private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
 
     /**
      * <h5>Constructs a new AuthController with AuthService injected.</h5>
      * @param authService the AuthService to be used by this controller
      */
-    public AuthController(AuthService authService) {
+    @Autowired
+    public AuthController(AuthService authService, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder,
+                          UserService userService) {
         this.authService = authService;
+        this.authenticationManager = authenticationManager;
+        this.passwordEncoder = passwordEncoder;
+        this.userService = userService;
+    }
+
+    @PostMapping("register")
+    public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
+        System.out.println("Hit");
+        User user = authService.register(registerDto);
+        if (user != null) {
+            return new ResponseEntity<>("Username is taken!", HttpStatus.BAD_REQUEST);
+        }
+        User registeredUser = new User(registerDto.getEmail(), passwordEncoder.encode(registerDto.getPassword()), registerDto.getFirstName(), registerDto.getLastName(), registerDto.getAddress());
+        userService.createUser(registeredUser);
+        return new ResponseEntity<>("User was successfully register", HttpStatus.OK);
     }
 
     /**
