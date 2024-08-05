@@ -39,4 +39,14 @@ public class ProfileService {
     }
 
 
+    public void deleteProfile(Profile deletedProfile) {
+        profileRepository.delete(deletedProfile);
+    }
+
+    public Profile findById(int profileId) {
+        Optional<Profile> profile = profileRepository.findById(profileId);
+        profile.orElseThrow(() -> new DataNotFoundException("No profile found with profileId" + profileId));
+
+        return profile.get();
+    }
 }

@@ -24,9 +24,15 @@ public class ItemController {
     private ResponseEntity<Item> postNewItem(@RequestBody Item item) {
         return ResponseEntity.status(HttpStatus.CREATED).body(itemService.create(item));
     }
-    
+
     @PutMapping
     public ResponseEntity<Item> updateItem(@RequestBody Item updatedItem){
         return ResponseEntity.status(HttpStatus.OK).body(itemService.updateItem(updatedItem));
+    }
+
+    @DeleteMapping
+    public  ResponseEntity<Void> deleteItem(@RequestBody Item deletedItem) {
+        itemService.deleteItem(deletedItem);
+        return ResponseEntity.noContent().build();
     }
 }

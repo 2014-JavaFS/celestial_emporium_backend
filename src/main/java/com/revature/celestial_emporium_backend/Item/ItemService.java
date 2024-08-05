@@ -1,7 +1,6 @@
 package com.revature.celestial_emporium_backend.Item;
 
 import com.revature.celestial_emporium_backend.util.exceptions.DataNotFoundException;
-import com.revature.celestial_emporium_backend.util.exceptions.InvalidInputException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,5 +46,9 @@ public class ItemService {
 
     public Item updateItem(Item updatedItem) {
         return itemRepository.save(updatedItem);
+    }
+
+    public void deleteItem(Item deletedItem) {
+        itemRepository.delete(deletedItem);
     }
 }

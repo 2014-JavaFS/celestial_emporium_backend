@@ -1,23 +1,19 @@
 package com.revature.celestial_emporium_backend.Profile.dtos;
 
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProfileRequestDTO {
     private int userIdNumber;
     private String bio;
-    private Date birthday;
+    private String birthday;
     private String location;
     private String playerClass;
     private String background;
-
-    public ProfileRequestDTO(int userIdNumber, String bio, Date birthday, String location, String playerClass, String background) {
-        this.userIdNumber = userIdNumber;
-        this.bio = bio;
-        this.birthday = birthday;
-        this.location = location;
-        this.playerClass = playerClass;
-        this.background = background;
-    }
 
     public int getUserIdNumber() {
         return userIdNumber;
@@ -35,11 +31,11 @@ public class ProfileRequestDTO {
         this.bio = bio;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
