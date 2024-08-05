@@ -34,6 +34,15 @@ public class User {
         NONE, BUYER, SELLER, ADMIN, WAUKEEN
     }
 
+    public User(String email, String password, String firstName, String lastName, String address) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.memberTier = MemberType.BUYER;
+    }
+
     /*
     User Roles:
         1) None: A completely new user may browse the inventory.
