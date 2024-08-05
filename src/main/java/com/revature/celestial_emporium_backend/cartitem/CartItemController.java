@@ -40,8 +40,10 @@ public class CartItemController {
         return ResponseEntity.ok(cartItemService.delete(id));
     }
 
-
-
+    @DeleteMapping("/checkout/{userId}")
+    public void checkout(@PathVariable int userId) {
+        cartItemService.checkout(userId);
+    }
 
 
 }

@@ -40,5 +40,9 @@ public class CartItemService {
         return true;
     }
 
+    public void checkout(int userId) {
+        cartItemRepository.deleteByUserId(userId);
+    }
+
 
 }
