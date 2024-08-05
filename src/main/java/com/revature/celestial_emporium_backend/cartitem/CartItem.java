@@ -1,6 +1,8 @@
 package com.revature.celestial_emporium_backend.cartitem;
 
 import com.revature.celestial_emporium_backend.Item.Item;
+import com.revature.celestial_emporium_backend.cart.Cart;
+import com.revature.celestial_emporium_backend.users.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,25 +17,21 @@ import java.util.Set;
 @Table(name = "cartitems")
 public class CartItem {
 
-
-//    @OneToOne
-//    @JoinColumn(name = "cart_id")
-//    private int cartId;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private int userId;
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
 
-    @ManyToMany
-    @JoinTable(
-            name = "items",
-            joinColumns = @JoinColumn(name = "cart_item_id"),
-            inverseJoinColumns = @JoinColumn(name = "item_id")
-    )
-    private Set<Item> items;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
 
     private int quantity;
 
