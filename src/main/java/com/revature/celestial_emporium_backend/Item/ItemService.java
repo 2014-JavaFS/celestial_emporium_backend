@@ -1,7 +1,6 @@
 package com.revature.celestial_emporium_backend.Item;
 
 import com.revature.celestial_emporium_backend.util.exceptions.DataNotFoundException;
-import com.revature.celestial_emporium_backend.util.exceptions.InvalidInputException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,4 +36,19 @@ public class ItemService {
         return true;
     }
 
+    public Item findByItemId(int itemId) throws DataNotFoundException{
+        return itemRepository.findById(itemId).orElseThrow(() -> new DataNotFoundException("No item found with itemId " + itemId));
+    }
+
+    public Item findByName(String name) throws DataNotFoundException{
+        return itemRepository.findByName(name).orElseThrow(() -> new DataNotFoundException("No item found with name " + name));
+    }
+
+    public Item updateItem(Item updatedItem) {
+        return itemRepository.save(updatedItem);
+    }
+
+    public void deleteItem(Item deletedItem) {
+        itemRepository.delete(deletedItem);
+    }
 }
