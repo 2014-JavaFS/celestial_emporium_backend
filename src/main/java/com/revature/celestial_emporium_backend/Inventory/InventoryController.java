@@ -8,6 +8,7 @@ import com.revature.celestial_emporium_backend.Item.ItemService;
 import com.revature.celestial_emporium_backend.users.User;
 import com.revature.celestial_emporium_backend.users.UserService;
 import com.revature.celestial_emporium_backend.util.exceptions.DataNotFoundException;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,10 +48,8 @@ public class InventoryController {
         return ResponseEntity.ok(inventoryService.findAll());
     }
 
-    private ResponseEntity<List<InventoryResponseDTO>> getUserInventories(@RequestHeader int userIdNumber) {
-        if(userIdNumber == 0) {
-            throw new DataNotFoundException("This user does not exist or is not logged in.");
-        }
+    @GetMapping("/user/{userIdNumber}")
+    private ResponseEntity<List<InventoryResponseDTO>> displayInventory(@PathVariable int userIdNumber) {
         return ResponseEntity.ok(inventoryService.findAllInventoriesByUserIdNumber(userIdNumber));
     }
 

@@ -39,6 +39,11 @@ public class ProfileController {
         return ResponseEntity.ok(profileService.findAll());
     }
 
+    @GetMapping("/{userIdNumber}")
+    private ResponseEntity<ProfileResponseDTO> showUserProfile(@PathVariable int userIdNumber) {
+        return ResponseEntity.ok(profileService.findByUserId(userIdNumber));
+    }
+
     @PutMapping
     private ResponseEntity<ProfileResponseDTO> updateProfile(@RequestHeader int profileId, @RequestBody ProfileRequestDTO profileRequestDTO) {
         Profile profile = new Profile(profileRequestDTO);
