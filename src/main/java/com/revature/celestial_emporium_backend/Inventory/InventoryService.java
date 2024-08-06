@@ -32,6 +32,24 @@ public class InventoryService {
                 .map(InventoryResponseDTO::new)
                 .toList();
     }
+
+    public Inventory findById(int number) {
+        Optional<Inventory> inventory = inventoryRepository.findById(number);
+        inventory.orElseThrow(() -> new DataNotFoundException("No inventory found with itemId" + number));
+
+        return inventory.get();
+    }
+
+    public InventoryResponseDTO updateInventory(Inventory updateInventory) {
+        Optional<Inventory> inventory = Optional.of(inventoryRepository.save(updateInventory));
+        inventory.orElseThrow(() -> new InvalidInputException("Double-Check Inventory Info"));
+
+        return inventory.map(InventoryResponseDTO::new).get();
+    }
+
+    public void deleteInventory(Inventory deletedInventory) {
+        inventoryRepository.delete(deletedInventory);
+    }
 //    public List<Inventory> findAllByUserId(int userId) {
 //        List<Inventory> inventories = inventoryRepository.findAllInventoriesByUserIdNumber(userId);
 //    }

@@ -25,7 +25,7 @@ public class UserController {
         else throw new InsufficientPrivileges("Only an admin may view all users.");
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{userId}")
     private ResponseEntity<User> getUserByID(@PathVariable int userId) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findById(userId));
     }
