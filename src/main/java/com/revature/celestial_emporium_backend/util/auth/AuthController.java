@@ -12,10 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
 
@@ -24,6 +21,7 @@ import javax.naming.AuthenticationException;
  * <p>This controller maps all requests to <em>"/auth"</em>.
  * It uses AuthService to perform authentication logic.</p>
  */
+@CrossOrigin(origins="http://localhost:5173")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -68,6 +66,7 @@ public class AuthController {
      * @param loginDto the form contianing login details
      */
 
+    @CrossOrigin(origins="http://localhost:5173")
     @PostMapping("login")
     private ResponseEntity<AuthResponseDto> login(@RequestBody LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
