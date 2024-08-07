@@ -25,6 +25,13 @@ public class InventoryService {
 
     public List<Inventory> findAll() {return inventoryRepository.findAll();}
 
+    public List<InventoryResponseDTO> findAllInventories() {
+
+        return inventoryRepository.findAll()
+                .stream()
+                .map(InventoryResponseDTO::new)
+                .toList();
+    }
     public List<InventoryResponseDTO> findAllInventoriesByUserIdNumber(int userIdNumber) {
         return inventoryRepository.findByUserIdNumber(userIdNumber)
                 .orElseThrow(() -> new DataNotFoundException("No inventories with userIdNumber " + userIdNumber))

@@ -44,8 +44,8 @@ public class InventoryController {
     }
 
     @GetMapping
-    private ResponseEntity<List<Inventory>> getAllInventories() {
-        return ResponseEntity.ok(inventoryService.findAll());
+    private ResponseEntity<List<InventoryResponseDTO>> getAllInventories() {
+        return ResponseEntity.ok(inventoryService.findAllInventories());
     }
 
     @GetMapping("/user/{userIdNumber}")
