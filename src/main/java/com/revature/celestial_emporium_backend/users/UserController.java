@@ -31,7 +31,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findById(userId));
     }
 
-    @PostMapping()
+    @PostMapping
     private ResponseEntity<User> createUser(@RequestBody User newUser){
         User registeredUser = userService.createUser(newUser);
         if(!isValidPassword(newUser.getPassword())) return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(newUser);
@@ -48,7 +48,7 @@ public class UserController {
         }else throw new AuthenticationException("You must be logged in as a user to update.");
     }
 
-    @PutMapping
+    @PutMapping("/updatePrivileges")
     private ResponseEntity<User> updateUserTier(@RequestHeader User.MemberType adminMemberType,
                                                 @RequestBody User updatedUser, @RequestBody User.MemberType newLevel)
             throws AuthenticationException{
