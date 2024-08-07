@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Table(name="inventories")
 public class Inventory {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int inventoryId;
 
     @ManyToOne

@@ -19,9 +19,9 @@ public class User {
     @Column(unique = true, nullable = false)
     @Email(message = "An email address must be in the form of _@_._; please try again.")
     private String email;
-    @Pattern(regexp = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}",
-            message = "A password must be between 8 and 30 characters and include at least one uppercase letter, " +
-                    "one lowercase letter, and one special character. Please try again.")
+//    @Pattern(regexp = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}",
+ //           message = "A password must be between 8 and 30 characters and include at least one uppercase letter, " +
+//                    "one lowercase letter, and one special character. Please try again.")
     @Column(nullable = false)
     private String password;
     private String firstName;
@@ -32,6 +32,15 @@ public class User {
 
     public enum MemberType{
         NONE, BUYER, SELLER, ADMIN, WAUKEEN
+    }
+
+    public User(String email, String password, String firstName, String lastName, String address) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.memberTier = MemberType.BUYER;
     }
 
     /*
