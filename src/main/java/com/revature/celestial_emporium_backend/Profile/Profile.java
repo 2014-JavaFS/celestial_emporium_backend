@@ -24,9 +24,12 @@ public class Profile {
     @JoinColumn(name = "user_id_number")
     private User user;
 
+    @Column(length = 1000)
     private String bio;
+    @Column(length = 50)
     private String birthday;
     private String location;
+    @Column(length = 50)
     private String playerClass;
     private String background;
 
