@@ -3,6 +3,7 @@ package com.revature.celestial_emporium_backend.cartitem;
 import com.revature.celestial_emporium_backend.Item.Item;
 import com.revature.celestial_emporium_backend.cart.Cart;
 import com.revature.celestial_emporium_backend.users.User;
+import com.revature.celestial_emporium_backend.Inventory.Inventory;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,8 +34,11 @@ public class CartItem {
     @JoinColumn(name = "item_id")
     private Item item;
 
+    private int price;
     private int quantity;
 
-
+    @ManyToOne
+    @JoinColumn(name = "inventory_id")
+    private Inventory inventory;
 
 }
