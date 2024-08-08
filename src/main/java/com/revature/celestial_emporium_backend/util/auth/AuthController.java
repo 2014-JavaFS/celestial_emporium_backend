@@ -1,5 +1,7 @@
 package com.revature.celestial_emporium_backend.util.auth;
 
+import com.revature.celestial_emporium_backend.Profile.Profile;
+import com.revature.celestial_emporium_backend.Profile.ProfileService;
 import com.revature.celestial_emporium_backend.security.JwtGenerator;
 import com.revature.celestial_emporium_backend.users.User;
 import com.revature.celestial_emporium_backend.users.UserRepository;
@@ -32,6 +34,7 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
     private final JwtGenerator jwtGenerator;
+    private final ProfileService profileService;
 
     /**
      * <h5>Constructs a new AuthController with AuthService injected.</h5>
@@ -39,12 +42,13 @@ public class AuthController {
      */
     @Autowired
     public AuthController(AuthService authService, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder,
-                          UserService userService, JwtGenerator jwtGenerator) {
+                          UserService userService, JwtGenerator jwtGenerator, ProfileService profileService) {
         this.authService = authService;
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
         this.jwtGenerator = jwtGenerator;
+        this.profileService = profileService;
     }
 
     @PostMapping("register")
@@ -55,7 +59,8 @@ public class AuthController {
             return new ResponseEntity<>("Username is taken!", HttpStatus.BAD_REQUEST);
         }
         User registeredUser = new User(registerDto.getEmail(), passwordEncoder.encode(registerDto.getPassword()), registerDto.getFirstName(), registerDto.getLastName(), registerDto.getAddress());
-        userService.createUser(registeredUser);
+        User newUser = userService.createUser(registeredUser);
+        profileService.createProfile(new Profile(newUser, "Bio here", "12/12/1212", "Somwhere", "Chef", "Background here"));
         return new ResponseEntity<>("User was successfully register", HttpStatus.OK);
     }
 

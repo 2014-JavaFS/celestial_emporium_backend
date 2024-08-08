@@ -41,4 +41,13 @@ public class Profile {
         this.playerClass = profileRequestDTO.getPlayerClass();
         this.background = profileRequestDTO.getBackground();
     }
+
+    public Profile(User user, String bio, String birthday, String location, String playerClass, String background) {
+        this.user = user;
+        this.bio = bio;
+        this.birthday = birthday;
+        this.location = location;
+        this.playerClass = playerClass;
+        this.background = background;
+    }
 }
