@@ -33,6 +33,8 @@ public class Profile {
     public Profile(ProfileRequestDTO profileRequestDTO) {
         User user = new User();
         user.setUserIdNumber(profileRequestDTO.getUserIdNumber());
+        user.setFirstName(profileRequestDTO.getFirstName());
+        user.setLastName(profileRequestDTO.getLastName());
         this.user = user;
 
         this.bio = profileRequestDTO.getBio();

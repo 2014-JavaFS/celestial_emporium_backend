@@ -21,6 +21,12 @@ public class ItemController {
     @GetMapping
     public @ResponseBody List<Item> getAllItems() { return itemService.findAll();};
 
+    @GetMapping("/{itemId}")
+    private ResponseEntity<Item> getItemByID(@PathVariable int itemId) {
+        return ResponseEntity.status(HttpStatus.OK).body(itemService.findByItemId(itemId));
+    }
+
+
     @PostMapping
     private ResponseEntity<Item> postNewItem(@RequestBody Item item) {
         return ResponseEntity.status(HttpStatus.CREATED).body(itemService.create(item));
