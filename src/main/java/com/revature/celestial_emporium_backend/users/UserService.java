@@ -20,7 +20,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-
     public User findByUserIdNumber(int userIdNumber) throws DataNotFoundException {
         return userRepository.findById(userIdNumber).orElseThrow(() -> new DataNotFoundException("No User found with userIdNumber " + userIdNumber));
     }

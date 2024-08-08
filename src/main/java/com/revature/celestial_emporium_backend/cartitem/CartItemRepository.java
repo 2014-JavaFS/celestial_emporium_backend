@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem, Integer> {
 
@@ -12,4 +14,7 @@ public interface CartItemRepository extends JpaRepository<CartItem, Integer> {
     @Transactional
     @Query("DELETE FROM CartItem ci WHERE ci.user.id = :userId")
     void deleteByUserId(int userId);
+
+    @Query("SELECT ci FROM CartItem ci WHERE ci.user.id = :userId")
+    Optional<CartItem> findByUser(int userId);
 }
