@@ -60,7 +60,7 @@ public class AuthController {
         }
         User registeredUser = new User(registerDto.getEmail(), passwordEncoder.encode(registerDto.getPassword()), registerDto.getFirstName(), registerDto.getLastName(), registerDto.getAddress());
         User newUser = userService.createUser(registeredUser);
-        profileService.createProfile(new Profile(newUser, "Bio here", "12/12/1212", "Somwhere", "Chef", "Background here"));
+        profileService.createProfile(new Profile(newUser, "Bio here", "12/12/1212", "Somewhere", "Chef", "Background here"));
         return new ResponseEntity<>("User was successfully register", HttpStatus.OK);
     }
 
