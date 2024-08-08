@@ -1,5 +1,6 @@
 package com.revature.celestial_emporium_backend.Profile;
 
+import com.revature.celestial_emporium_backend.Profile.dtos.ProfileRequestDTO;
 import com.revature.celestial_emporium_backend.Profile.dtos.ProfileResponseDTO;
 import com.revature.celestial_emporium_backend.util.exceptions.DataNotFoundException;
 import com.revature.celestial_emporium_backend.util.exceptions.InvalidInputException;
@@ -38,6 +39,34 @@ public class ProfileService {
         return profile.map(ProfileResponseDTO::new).get();
     }
 
+    public ProfileResponseDTO partialUpdate(int userIdNumber, ProfileRequestDTO profileRequestDTO) {
+        Profile profile = profileRepository.findByUserIdNumber(userIdNumber).orElseThrow(() -> new DataNotFoundException("Profile not found"));
+
+        if(profileRequestDTO.getFirstName() != null) {
+            profile.getUser().setFirstName(profileRequestDTO.getFirstName());
+        }
+        if(profileRequestDTO.getLastName() != null) {
+            profile.getUser().setLastName(profileRequestDTO.getLastName());
+        }
+        if(profileRequestDTO.getBio() != null) {
+            profile.setBio(profileRequestDTO.getBio());
+        }
+        if(profileRequestDTO.getBirthday() != null) {
+            profile.setBirthday(profileRequestDTO.getBirthday());
+        }
+        if(profileRequestDTO.getLocation() != null) {
+            profile.setLocation(profileRequestDTO.getLocation());
+        }
+        if(profileRequestDTO.getPlayerClass() != null) {
+            profile.setPlayerClass(profileRequestDTO.getPlayerClass());
+        }
+        if(profileRequestDTO.getBackground() != null) {
+            profile.setBackground(profileRequestDTO.getBackground());
+        }
+        Optional<Profile> updateProfile = Optional.of(profileRepository.save(profile));
+        updateProfile.orElseThrow(() -> new InvalidInputException("Double-Check Profile Info"));
+        return updateProfile.map(ProfileResponseDTO::new).get();
+    }
 
     public void deleteProfile(Profile deletedProfile) {
         profileRepository.delete(deletedProfile);
