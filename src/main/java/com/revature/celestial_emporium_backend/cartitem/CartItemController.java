@@ -1,5 +1,4 @@
 package com.revature.celestial_emporium_backend.cartitem;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +43,5 @@ public class CartItemController {
     public void checkout(@PathVariable int userId) {
         cartItemService.checkout(userId);
     }
-
 
 }

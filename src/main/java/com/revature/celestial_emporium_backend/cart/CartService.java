@@ -3,13 +3,8 @@ import com.revature.celestial_emporium_backend.util.exceptions.DataNotFoundExcep
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
-import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.zip.DataFormatException;
 
 @Service
 public class CartService {
@@ -48,12 +43,5 @@ public class CartService {
         cartRepository.save(cart);
         return true;
     }
-
-
-
-
-
-
-
 
 }
