@@ -20,3 +20,8 @@ INSERT INTO users(email, password, first_name, last_name, address, member_tier) 
 	('testadmin1@email.com', '123pass@worD', 'Adam', 'Tester', 'nowhere', 'ADMIN'),
 	('testadmin2@email.org', '111A2d4!', 'Tony', 'Stark', 'multiverse', 'ADMIN'),
 	('waukeen@gods.com', '7777777AAaa!', 'Waukeen', 'Gold', 'Nirvana', 'WAUKEEN');
+
+INSERT INTO inventories(user_id_number, item_id, quantity, price) VALUES
+    (1, 1, 5, 3000),
+    (1, 2, 3, 4000),
+    (2, 4, 2, 1000);

@@ -18,8 +18,14 @@ public class ItemController {
     @Autowired
     public ItemController(ItemService itemService) { this.itemService = itemService; }
 
+
     @GetMapping
     public @ResponseBody List<Item> getAllItems() { return itemService.findAll();};
+
+    @GetMapping("/{itemId}")
+    public ResponseEntity<Item> getItemById(@PathVariable int itemId) {
+        return ResponseEntity.status(HttpStatus.OK).body(itemService.findByItemId(itemId));
+    }
 
     @PostMapping
     private ResponseEntity<Item> postNewItem(@RequestBody Item item) {
