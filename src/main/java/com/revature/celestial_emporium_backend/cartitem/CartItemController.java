@@ -25,9 +25,9 @@ public class CartItemController {
         return ResponseEntity.status(HttpStatus.CREATED).body(cartItemService.create(cartItem));
     }
 
-    @GetMapping("/{id}")
-    private ResponseEntity<Optional<CartItem>> getCartItemById(@PathVariable int id) {
-        return ResponseEntity.ok(cartItemService.findById(id));
+    @GetMapping("/{userId}")
+    private ResponseEntity<Optional<CartItem>> getCartItemByUser(@PathVariable int userId) {
+        return ResponseEntity.ok(cartItemService.findByUser(userId));
     }
 
     @PutMapping
