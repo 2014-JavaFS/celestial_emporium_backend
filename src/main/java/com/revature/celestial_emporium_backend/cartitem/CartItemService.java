@@ -33,6 +33,7 @@ public class CartItemService {
     }
 
     public Optional<CartItem> findById(int id) { return cartItemRepository.findById(id); }
+    public Optional<CartItem> findByUser(int id) { return cartItemRepository.findByUser(id); }
 
     public CartItem create(CartItem cartItem) { return cartItemRepository.save(cartItem); }
 
