@@ -35,7 +35,7 @@ public class CartItemService {
     }
 
     public Optional<CartItem> findById(int id) { return cartItemRepository.findById(id); }
-    public Optional<CartItem> findByUser(int id) { return cartItemRepository.findByUser(id); }
+    public List<CartItem> findByUser(int id) { return cartItemRepository.findByUserId(id); }
 
     @Transactional
     public boolean delete(int cartItemId) {

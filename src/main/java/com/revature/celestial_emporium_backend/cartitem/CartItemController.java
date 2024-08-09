@@ -25,8 +25,9 @@ public class CartItemController {
     }
 
     @GetMapping("/{userId}")
-    private ResponseEntity<Optional<CartItem>> getCartItemByUser(@PathVariable int userId) {
-        return ResponseEntity.ok(cartItemService.findByUser(userId));
+    public ResponseEntity<List<CartItem>> getCartItemsByUser(@PathVariable int userId) {
+        List<CartItem> cartItems = cartItemService.findByUser(userId);
+        return ResponseEntity.ok(cartItems);
     }
 
     @PutMapping
