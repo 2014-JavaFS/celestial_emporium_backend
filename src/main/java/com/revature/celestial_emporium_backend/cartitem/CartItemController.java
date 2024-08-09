@@ -35,7 +35,7 @@ public class CartItemController {
         return ResponseEntity.ok(cartItemService.update(updatedCartItem));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     private ResponseEntity<Boolean> deleteCartItem(@PathVariable int id) {
         return ResponseEntity.ok(cartItemService.delete(id));
     }
