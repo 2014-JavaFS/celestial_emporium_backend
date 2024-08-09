@@ -66,15 +66,15 @@ public class ProfileController {
 //
 //        return ResponseEntity.status(HttpStatus.OK).body(profileResponseDTO);
 //    }
-    @PatchMapping("/{userIdNumber}")
-    private ResponseEntity<ProfileResponseDTO> updateProfile( @PathVariable int userIdNumber, @RequestBody ProfileRequestDTO profileRequestDTO) {
-        try {
-            ProfileResponseDTO profileResponseDTO = profileService.partialUpdate(userIdNumber,profileRequestDTO);
-            return ResponseEntity.status(HttpStatus.OK).body(profileResponseDTO);
-        } catch (DataNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-    }
+//    @PatchMapping("/{userIdNumber}")
+//    private ResponseEntity<ProfileResponseDTO> updateProfile( @PathVariable int userIdNumber, @RequestBody ProfileRequestDTO profileRequestDTO) {
+//        try {
+//            ProfileResponseDTO profileResponseDTO = profileService.partialUpdate(userIdNumber,profileRequestDTO);
+//            return ResponseEntity.status(HttpStatus.OK).body(profileResponseDTO);
+//        } catch (DataNotFoundException e) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//        }
+//    }
 
     @DeleteMapping
     private ResponseEntity<Void> deleteProfile(@RequestHeader int profileId, @RequestHeader int userIdNumber) {
