@@ -23,7 +23,7 @@ public class ItemController {
     public @ResponseBody List<Item> getAllItems() { return itemService.findAll();};
 
     @GetMapping("/{itemId}")
-    public ResponseEntity<Item> getItemById(@PathVariable int itemId) {
+    private ResponseEntity<Item> getItemByID(@PathVariable int itemId) {
         return ResponseEntity.status(HttpStatus.OK).body(itemService.findByItemId(itemId));
     }
 

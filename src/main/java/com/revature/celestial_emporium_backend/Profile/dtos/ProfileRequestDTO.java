@@ -16,6 +16,4 @@ public class ProfileRequestDTO {
     private String location;
     private String playerClass;
     private String background;
-
-
 }

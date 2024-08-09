@@ -56,17 +56,25 @@ public class ProfileController {
         return ResponseEntity.ok(profileService.findByUserId(userIdNumber));
     }
 
-//    @PutMapping
-//    private ResponseEntity<ProfileResponseDTO> updateProfile(@RequestHeader int profileId, @RequestBody ProfileRequestDTO profileRequestDTO) {
+//    @PutMapping("/{userIdNumber}")
+//    private ResponseEntity<ProfileResponseDTO> updateProfile( @PathVariable int userIdNumber, @RequestBody ProfileRequestDTO profileRequestDTO) {
 //        Profile profile = new Profile(profileRequestDTO);
-//        User user = userService.findByUserIdNumber(profileRequestDTO.getUserIdNumber());
+//        User user = userService.findByUserIdNumber(userIdNumber);
 //        profile.setUser(user);
-//        profile.setProfileId(profileId);
 //
 //        ProfileResponseDTO profileResponseDTO = profileService.updateProfile(profile);
 //
 //        return ResponseEntity.status(HttpStatus.OK).body(profileResponseDTO);
 //    }
+    @PatchMapping("/{userIdNumber}")
+    private ResponseEntity<ProfileResponseDTO> updateProfile( @PathVariable int userIdNumber, @RequestBody ProfileRequestDTO profileRequestDTO) {
+        try {
+            ProfileResponseDTO profileResponseDTO = profileService.partialUpdate(userIdNumber,profileRequestDTO);
+            return ResponseEntity.status(HttpStatus.OK).body(profileResponseDTO);
+        } catch (DataNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
 
     @DeleteMapping
     private ResponseEntity<Void> deleteProfile(@RequestHeader int profileId, @RequestHeader int userIdNumber) {
