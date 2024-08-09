@@ -1,23 +1,25 @@
 package com.revature.celestial_emporium_backend.cartitem;
+import com.revature.celestial_emporium_backend.cart.CartRepository;
+import com.revature.celestial_emporium_backend.users.UserRepository;
 import com.revature.celestial_emporium_backend.util.exceptions.DataNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
-import java.util.zip.DataFormatException;
-import com.revature.celestial_emporium_backend.Item.Item;
 import com.revature.celestial_emporium_backend.cart.Cart;
-import com.revature.celestial_emporium_backend.users.User;
-import com.revature.celestial_emporium_backend.Inventory.Inventory;
 import com.revature.celestial_emporium_backend.Inventory.InventoryRepository;
 
 @Service
 public class CartItemService {
     private final CartItemRepository cartItemRepository;
+    private final CartRepository cartRepository;
 
     @Autowired
-    public CartItemService(CartItemRepository cartItemRepository) { this.cartItemRepository = cartItemRepository; }
+    public CartItemService(CartItemRepository cartItemRepository, CartRepository cartRepository, UserRepository userRepository) {
+        this.cartItemRepository = cartItemRepository;
+        this.cartRepository = cartRepository;
+    }
 
     @Autowired
     private InventoryRepository inventoryRepository;
@@ -33,9 +35,7 @@ public class CartItemService {
     }
 
     public Optional<CartItem> findById(int id) { return cartItemRepository.findById(id); }
-    public Optional<CartItem> findByUser(int id) { return cartItemRepository.findByUser(id); }
-
-    public CartItem create(CartItem cartItem) { return cartItemRepository.save(cartItem); }
+    public List<CartItem> findByUser(int id) { return cartItemRepository.findByUserId(id); }
 
     @Transactional
     public boolean delete(int cartItemId) {
@@ -54,27 +54,21 @@ public class CartItemService {
     }
 
     @Transactional
-    public CartItem addCartItem(int cartId, int userId, int itemId, int quantity) {
+    public CartItem create(CartItem cartItem) {
+        int userId = cartItem.getUser().getUserIdNumber();
 
-        Optional<Inventory> inventoryOptional = inventoryRepository.findById(itemId);
+        Optional<Cart> existingCart = cartRepository.findByUserId(userId);
 
-        if (inventoryOptional.isEmpty()) {
-            throw new DataNotFoundException("Item with id " + itemId + " not found in inventory");
+        Cart cart;
+        if (existingCart.isEmpty()) {
+
+            cart = new Cart();
+            cart.setUser(cartItem.getUser());
+            cart = cartRepository.save(cart);
+        } else {
+            cart = existingCart.get();
         }
-
-        Inventory inventory = inventoryOptional.get();
-
-        CartItem cartItem = new CartItem();
-        Cart cart = new Cart();
-        cart.setCartId(cartId);
-
-        User user = new User();
-        user.setUserIdNumber(userId);
-        cartItem.setUser(user);
-
-        cartItem.setQuantity(quantity);
-        cartItem.setPrice(inventory.getPrice());
-        cartItem.setInventory(inventory);
+        cartItem.setCart(cart);
 
         return cartItemRepository.save(cartItem);
     }

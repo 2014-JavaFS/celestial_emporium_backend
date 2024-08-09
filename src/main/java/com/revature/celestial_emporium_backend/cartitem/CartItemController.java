@@ -1,5 +1,4 @@
 package com.revature.celestial_emporium_backend.cartitem;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +25,9 @@ public class CartItemController {
     }
 
     @GetMapping("/{userId}")
-    private ResponseEntity<Optional<CartItem>> getCartItemByUser(@PathVariable int userId) {
-        return ResponseEntity.ok(cartItemService.findByUser(userId));
+    public ResponseEntity<List<CartItem>> getCartItemsByUser(@PathVariable int userId) {
+        List<CartItem> cartItems = cartItemService.findByUser(userId);
+        return ResponseEntity.ok(cartItems);
     }
 
     @PutMapping
@@ -44,6 +44,5 @@ public class CartItemController {
     public void checkout(@PathVariable int userId) {
         cartItemService.checkout(userId);
     }
-
 
 }
