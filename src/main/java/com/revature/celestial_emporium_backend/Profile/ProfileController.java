@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins="http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/profiles")
 public class ProfileController {
@@ -36,6 +36,16 @@ public class ProfileController {
         return ResponseEntity.status(HttpStatus.CREATED).body(profileResponseDTO);
     }
 
+    @PatchMapping("/{userIdNumber}")
+    private ResponseEntity<ProfileResponseDTO> updateProfile( @PathVariable int userIdNumber, @RequestBody ProfileRequestDTO profileRequestDTO) {
+        try {
+            ProfileResponseDTO profileResponseDTO = profileService.partialUpdate(userIdNumber,profileRequestDTO);
+            return ResponseEntity.status(HttpStatus.OK).body(profileResponseDTO);
+        } catch (DataNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
     @GetMapping
     private ResponseEntity<List<Profile>> getAllProfiles() {
         return ResponseEntity.ok(profileService.findAll());
@@ -56,7 +66,6 @@ public class ProfileController {
 //
 //        return ResponseEntity.status(HttpStatus.OK).body(profileResponseDTO);
 //    }
-
     @PatchMapping("/{userIdNumber}")
     private ResponseEntity<ProfileResponseDTO> updateProfile( @PathVariable int userIdNumber, @RequestBody ProfileRequestDTO profileRequestDTO) {
         try {

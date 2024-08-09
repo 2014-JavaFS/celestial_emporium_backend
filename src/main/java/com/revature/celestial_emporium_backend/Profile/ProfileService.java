@@ -68,7 +68,6 @@ public class ProfileService {
         return updateProfile.map(ProfileResponseDTO::new).get();
     }
 
-
     public void deleteProfile(Profile deletedProfile) {
         profileRepository.delete(deletedProfile);
     }
